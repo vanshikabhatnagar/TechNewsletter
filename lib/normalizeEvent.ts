@@ -15,10 +15,18 @@ function parseDateFlexible(dateStr: string): Date | null {
 
 function combineDateAndTime(date: Date, time?: string): Date {
   if (!time) return date;
-  const [hh, mm] = time.split(':');
+  const trimmed = time.trim();
+  // Ignore dashes or invalid placeholders
+  if (!trimmed || /^[-–—]+$/.test(trimmed)) return date;
+  // Accept HH:MM (24h) only; otherwise ignore time
+  if (!/^\d{1,2}:\d{2}$/.test(trimmed)) return date;
+  const [hhStr, mmStr] = trimmed.split(':');
+  const hours = Number(hhStr);
+  const minutes = Number(mmStr);
+  if (Number.isNaN(hours) || Number.isNaN(minutes)) return date;
   const dt = new Date(date);
-  if (hh) dt.setHours(Number(hh));
-  if (mm) dt.setMinutes(Number(mm));
+  dt.setHours(hours);
+  dt.setMinutes(minutes);
   dt.setSeconds(0, 0);
   return dt;
 }

@@ -19,20 +19,28 @@ export function parseEventsCsv(csvText: string): EventItem[] {
     // eslint-disable-next-line no-console
     console.warn('CSV parse errors:', errors.slice(0, 3));
   }
+  function clean(val?: string): string {
+    if (!val) return '';
+    const v = String(val).trim();
+    // Treat various dashes or placeholders as empty
+    if (v === '-' || v === '–' || v === '—' || v.toLowerCase() === 'na' || v.toLowerCase() === 'n/a') return '';
+    return v;
+  }
+
   const items: EventItem[] = (data || []).map((row, idx) => {
     const tags = (row.tags || row.Tags || '').split(',').map(t => t.trim()).filter(Boolean);
     return {
       id: String(idx + 1),
-      title: row.title || row.Title || '',
-      date: row.date || row.Date || '',
-      startTime: row.startTime || row.StartTime || row.start_time || '',
-      endTime: row.endTime || row.EndTime || row.end_time || '',
-      location: row.location || row.Location || '',
-      society: row.society || row.Society || '',
+      title: clean(row.title || row.Title),
+      date: clean(row.date || row.Date),
+      startTime: clean(row.startTime || row.StartTime || row.start_time),
+      endTime: clean(row.endTime || row.EndTime || row.end_time),
+      location: clean(row.location || row.Location),
+      society: clean(row.society || row.Society),
       tags,
-      description: row.description || row.Description || '',
-      rsvpUrl: row.rsvpUrl || row.RSVP || row.rsvp || '',
-      imageUrl: row.imageUrl || row.ImageUrl || row.image || '',
+      description: clean(row.description || row.Description),
+      rsvpUrl: clean(row.rsvpUrl || row.RSVP || row.rsvp),
+      imageUrl: clean(row.imageUrl || row.ImageUrl || row.image),
     };
   });
   return items;
