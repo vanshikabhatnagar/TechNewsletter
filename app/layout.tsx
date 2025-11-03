@@ -24,10 +24,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-slate-50 text-slate-900 antialiased`}>
+        <div className="mx-auto max-w-5xl px-4 py-4">
+          <nav className="mb-6 flex items-center justify-between">
+            <a href="/" className="text-base font-semibold text-blue-800">Oxford Tech Society</a>
+            <div className="flex items-center gap-4 text-sm">
+              <a href="/" className="hover:underline">List</a>
+              <a href="/calendar" className="hover:underline">Calendar</a>
+            </div>
+          </nav>
+          {children}
+          <footer className="mt-10 border-t border-slate-200 pt-4 text-xs text-slate-600">
+            Data from Google Sheets. Updates may take a few minutes to appear.
+          </footer>
+        </div>
       </body>
     </html>
   );
