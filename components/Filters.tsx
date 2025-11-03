@@ -52,39 +52,47 @@ export default function Filters({ events, onChange }: Props) {
   }, [query, society, tag, location]);
 
   return (
-    <div className="flex flex-col gap-3 rounded-md border border-slate-200 bg-white p-4">
+    <div className="flex flex-col gap-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-5 shadow-lg">
+      <div className="flex items-center gap-2 mb-1">
+        <svg className="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+        </svg>
+        <h2 className="text-sm font-semibold text-slate-200">Filter Events</h2>
+      </div>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <input
-          type="text"
-          placeholder="Search title or description"
-          className="rounded border border-slate-300 px-3 py-2 text-sm"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Search events..."
+            className="w-full rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-2.5 text-sm text-slate-200 placeholder-slate-500 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:bg-white/10 transition-all"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
         <select
-          className="rounded border border-slate-300 px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-2.5 text-sm text-slate-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:bg-white/10 transition-all cursor-pointer"
           value={society}
           onChange={(e) => setSociety(e.target.value)}
         >
-          <option value="">All societies</option>
+          <option value="" className="bg-slate-800">All societies</option>
           {societies.map((s) => (
-            <option key={s} value={s}>{s}</option>
+            <option key={s} value={s} className="bg-slate-800">{s}</option>
           ))}
         </select>
         <select
-          className="rounded border border-slate-300 px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-2.5 text-sm text-slate-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:bg-white/10 transition-all cursor-pointer"
           value={tag}
           onChange={(e) => setTag(e.target.value)}
         >
-          <option value="">All tags</option>
+          <option value="" className="bg-slate-800">All tags</option>
           {tags.map((t) => (
-            <option key={t} value={t}>{t}</option>
+            <option key={t} value={t} className="bg-slate-800">{t}</option>
           ))}
         </select>
         <input
           type="text"
           placeholder="Filter by location"
-          className="rounded border border-slate-300 px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-2.5 text-sm text-slate-200 placeholder-slate-500 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:bg-white/10 transition-all"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />

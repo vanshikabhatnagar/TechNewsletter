@@ -18,13 +18,17 @@ export default function CalendarView({ events }: Props) {
   }));
 
   return (
-    <div className="rounded-md border border-slate-200 bg-white p-3">
+    <div className="rounded-xl border border-white/10 bg-white/10 backdrop-blur-md p-4 sm:p-6 shadow-lg">
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         headerToolbar={{ left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,timeGridDay' }}
         events={fcEvents}
         height="auto"
+        eventColor="#6366f1"
+        eventTextColor="#ffffff"
+        eventBorderColor="#818cf8"
+        eventBackgroundColor="#6366f1"
       />
     </div>
   );
