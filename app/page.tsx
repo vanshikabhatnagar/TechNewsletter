@@ -4,6 +4,9 @@ import type { NormalizedEvent } from '@/types/event';
 import { fetchCsvText, parseEventsCsv } from '@/lib/csv';
 import { normalizeEvents } from '@/lib/normalizeEvent';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 async function getEvents(): Promise<NormalizedEvent[]> {
   const csvUrl = process.env.PUBLIC_EVENTS_CSV_URL;
   if (!csvUrl) return [];
