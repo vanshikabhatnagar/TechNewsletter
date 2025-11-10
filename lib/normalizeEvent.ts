@@ -1,4 +1,4 @@
-import { format, isValid, parse } from 'date-fns';
+import { format, isValid, parse, startOfDay } from 'date-fns';
 import type { EventItem, NormalizedEvent } from '@/types/event';
 
 function parseDateFlexible(dateStr: string): Date | null {
@@ -33,11 +33,13 @@ function combineDateAndTime(date: Date, time?: string): Date {
 
 export function normalizeEvents(items: EventItem[]): NormalizedEvent[] {
   const normalized: NormalizedEvent[] = [];
+  const today = startOfDay(new Date());
   for (const item of items) {
     const parsedDate = parseDateFlexible(item.date);
     if (!item.title || !parsedDate) continue;
 
     const start = combineDateAndTime(parsedDate, item.startTime);
+    if (startOfDay(start) < today) continue;
     const endCandidate = item.endTime ? combineDateAndTime(parsedDate, item.endTime) : undefined;
     const end = endCandidate && endCandidate > start ? endCandidate : undefined;
 
